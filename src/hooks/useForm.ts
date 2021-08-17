@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export type IChangeElement =
   | HTMLInputElement
   | HTMLSelectElement
   | HTMLTextAreaElement;
 
-export const useForm = <T>(initialState: T, handleAction: Function) => {
-  const [formState, setFormState] = useState(initialState);
+export const useForm = <T>(activeRecord: T, handleAction: Function) => {
+  const [formState, setFormState] = useState(activeRecord);
+
+  useEffect(() => {
+    setFormState(activeRecord);
+  }, [activeRecord]);
 
   const handleChange = (event: React.ChangeEvent<IChangeElement>): void => {
     const { name, value } = event.target;

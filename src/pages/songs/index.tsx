@@ -1,10 +1,16 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Song } from '../../entities/Song';
-import { useForm } from '../../hooks/useForm';
+import { Form } from './Form';
 
 export const Songs = () => {
+  const emptySong: Song = {
+    title: '',
+    artist: '',
+  };
+
   const [records, setRecords] = useState<Song[]>([]);
+  const [activeRecord, setActiveRecord] = useState<Song>(emptySong);
   const api = 'http://localhost:4000';
   const path = 'songs';
 
@@ -18,51 +24,33 @@ export const Songs = () => {
     fetch();
   };
 
+  const update = async (song: Song) => {
+    await axios.put<Song>(`${api}/${path}/${song.id}`, song);
+    fetch();
+  };
+
   const remove = async (record: Song) => {
     await axios.delete<Song>(`${api}/${path}/${record.id}`);
     fetch();
+  };
+
+  const handleAction = (record: Song) => {
+    activeRecord.id ? update(record) : create(record);
+    setActiveRecord(emptySong);
   };
 
   useEffect(() => {
     fetch();
   }, []);
 
-  const emptySong: Song = {
-    title: '',
-    artist: '',
-  };
-
-  const { formState, handleChange, handleSubmit } = useForm<Song>(
-    emptySong,
-    create
-  );
-
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title</label>
-          <input
-            type="text"
-            name="title"
-            onChange={handleChange}
-            value={formState.title}
-          />
-        </div>
-        <div>
-          <label>Artist</label>
-          <input
-            type="text"
-            name="artist"
-            onChange={handleChange}
-            value={formState.artist}
-          />
-        </div>
-        <input type="submit" />
-      </form>
+      {JSON.stringify(activeRecord)}
+      <Form activeRecord={activeRecord} action={handleAction} />
       <table>
         <thead>
           <tr>
+            <th>Edit</th>
             <th>Remove</th>
             <th>Title</th>
             <th>Artist</th>
@@ -71,6 +59,9 @@ export const Songs = () => {
         <tbody>
           {records.map((record) => (
             <tr key={record.id}>
+              <td>
+                <button onClick={() => setActiveRecord(record)}>E</button>
+              </td>
               <td>
                 <button onClick={() => remove(record)}>X</button>
               </td>
