@@ -1,35 +1,28 @@
-import { useState, useEffect } from 'react';
-import { Song } from '../../entities/Song';
+import { useState } from 'react';
+import { Song, emptyRecord, path } from '../../entities/Song';
 import { useFetch } from '../../hooks/useFetch';
 import { useMutation } from '../../hooks/useMutation';
 import { Form } from './Form';
 
 export const Songs = () => {
-  const emptySong: Song = {
-    title: '',
-    artist: '',
-  };
-
-  const [activeRecord, setActiveRecord] = useState<Song>(emptySong);
+  const [activeRecord, setActiveRecord] = useState<Song>(emptyRecord);
   const api = 'http://localhost:4000';
-  const path = 'songs';
   const url = `${api}/${path}`;
 
   const { records, fetch } = useFetch<Song>(url);
-  const { create, update, remove } = useMutation<Song>(url, fetch);
 
-  useEffect(() => {
+  const mutationCallback = () => {
     fetch();
-  }, [fetch]);
-
-  const handleAction = (record: Song) => {
-    activeRecord.id ? update(record) : create(record);
-    setActiveRecord(emptySong);
+    setActiveRecord({ ...emptyRecord });
   };
+
+  const { create, update, remove } = useMutation<Song>(url, mutationCallback);
+
+  const action = activeRecord.id ? update : create;
 
   return (
     <div>
-      <Form activeRecord={activeRecord} action={handleAction} />
+      <Form activeRecord={activeRecord} action={action} />
       <table>
         <thead>
           <tr>
