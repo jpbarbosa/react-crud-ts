@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Song } from '../../entities/Song';
+import { useForm } from '../../hooks/useForm';
 
 export const Songs = () => {
   const [records, setRecords] = useState<Song[]>([]);
@@ -12,11 +13,8 @@ export const Songs = () => {
     setRecords(result.data);
   };
 
-  const create = async () => {
-    await axios.post<Song>(`${api}/${path}`, {
-      title: 'One',
-      artist: 'U2',
-    });
+  const create = async (song: Song) => {
+    await axios.post<Song>(`${api}/${path}`, song);
     fetch();
   };
 
@@ -29,9 +27,39 @@ export const Songs = () => {
     fetch();
   }, []);
 
+  const emptySong: Song = {
+    title: '',
+    artist: '',
+  };
+
+  const { formState, handleChange, handleSubmit } = useForm<Song>(
+    emptySong,
+    create
+  );
+
   return (
     <div>
-      <button onClick={create}>Create Song</button>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Title</label>
+          <input
+            type="text"
+            name="title"
+            onChange={handleChange}
+            value={formState.title}
+          />
+        </div>
+        <div>
+          <label>Artist</label>
+          <input
+            type="text"
+            name="artist"
+            onChange={handleChange}
+            value={formState.artist}
+          />
+        </div>
+        <input type="submit" />
+      </form>
       <table>
         <thead>
           <tr>
