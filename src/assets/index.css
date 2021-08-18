@@ -129,7 +129,10 @@ h2 {
 }
 
 .list th {
-  font-size: 14px;
+  font-size: 12px;
+  color: #666;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 .list th,
@@ -144,7 +147,7 @@ h2 {
   text-align: center;
 }
 
-.list tr:hover {
+.list tbody tr:hover {
   background: #111;
 }
 
@@ -166,8 +169,11 @@ h2 {
 
 label {
   display: block;
-  color: #999;
   margin-bottom: 4px;
+  font-size: 12px;
+  color: #ccc;
+  font-weight: normal;
+  text-transform: uppercase;
 }
 
 input[type='text'],
@@ -194,7 +200,6 @@ textarea {
 input[type='submit'],
 button,
 a.button {
-  padding: 5px 10px;
   color: #0f0;
   background: transparent;
   border: 1px solid #0f0;
