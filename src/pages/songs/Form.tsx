@@ -13,7 +13,7 @@ export const Form = ({ activeRecord, action }: IProps) => {
   );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <div>
         <label>Title</label>
         <input

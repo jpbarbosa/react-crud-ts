@@ -1,13 +1,214 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  color: #fff;
+  background: #333;
+  font-size: 18px;
+  line-height: 1.2em;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.App {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+header {
+  padding: 20px;
+  border-bottom: 1px solid #fff;
+}
+
+header h1 {
+  display: flex;
+  align-items: center;
+}
+
+header .subtitle {
+  font-size: 18px;
+  background: #666;
+  color: #fff;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 10px;
+  font-weight: normal;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation .internal,
+.navigation .external {
+  display: flex;
+}
+
+.navigation button,
+.navigation a.button {
+  margin-bottom: 0;
+  color: #fff;
+  background: transparent;
+  border: 1px solid #fff;
+}
+
+.navigation button.active {
+  color: #000;
+  background: #fff;
+}
+
+.navigation a.button {
+  text-decoration: none;
+  margin-right: 0;
+}
+
+h1,
+h2 {
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.page {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column;
+}
+
+.status {
+  margin-left: -20px;
+  padding: 10px 20px;
+  background: #ccc;
+  color: #333;
+  font-size: smaller;
+  position: fixed;
+  bottom: 0;
+  opacity: 0.9;
+}
+
+.status-text {
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.error {
+  padding: 20px;
+  margin: -20px -20px 20px -20px;
+  background: #c00;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  font-size: smaller;
+}
+
+.error ul {
+  margin: 10px 0px 0px;
+}
+
+.content {
+  display: flex;
+  flex-grow: 1;
+}
+
+.list {
+  background: #222;
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.list th {
+  font-size: 14px;
+}
+
+.list th,
+.list td {
+  padding: 8px 16px;
+  border-bottom: 1px solid #333;
+}
+
+.list th.action,
+.list td.action {
+  width: 1%;
+  text-align: center;
+}
+
+.list tr:hover {
+  background: #111;
+}
+
+.list tr.active {
+  background: #000;
+}
+
+.form {
+  display: flex;
+  width: 100%;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 16px;
+}
+
+.form > div {
+  width: 100%;
+}
+
+label {
+  display: block;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+input[type='text'],
+input[type='submit'],
+button,
+select,
+textarea,
+a.button {
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #999;
+  padding: 8px;
+  color: #fff;
+  background: #000;
+  -webkit-appearance: none;
+}
+
+input[type='text'],
+select,
+textarea {
+  width: 100%;
+}
+
+input[type='submit'],
+button,
+a.button {
+  padding: 5px 10px;
+  color: #0f0;
+  background: transparent;
+  border: 1px solid #0f0;
+}
+
+input[type='submit'],
+button.bt-new {
+  color: #0f0;
+  background: transparent;
+  border: 1px solid #0f0;
+}
+
+button.bt-remove {
+  color: #f00;
+  background: transparent;
+  border: 1px solid #f00;
 }

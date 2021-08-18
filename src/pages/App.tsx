@@ -1,10 +1,11 @@
 import React from 'react';
+import { Header } from '../components/Header';
 import { Songs } from './songs';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">React CRUD</header>
+      <Header />
       <Songs />
     </div>
   );

@@ -23,23 +23,33 @@ export const Songs = () => {
   return (
     <div>
       <Form activeRecord={activeRecord} action={action} />
-      <table>
+      <table className="list">
         <thead>
           <tr>
-            <th>Edit</th>
-            <th>Remove</th>
+            <th className="action">Edit</th>
+            <th className="action">Remove</th>
             <th>Title</th>
             <th>Artist</th>
           </tr>
         </thead>
         <tbody>
           {records.map((record) => (
-            <tr key={record.id}>
-              <td>
-                <button onClick={() => setActiveRecord(record)}>E</button>
+            <tr
+              key={record.id}
+              className={record.id === activeRecord.id ? 'active' : ''}
+            >
+              <td className="action">
+                <button
+                  onClick={() => setActiveRecord(record)}
+                  className="bt-edit"
+                >
+                  E
+                </button>
               </td>
-              <td>
-                <button onClick={() => remove(record)}>X</button>
+              <td className="action">
+                <button onClick={() => remove(record)} className="bt-remove">
+                  X
+                </button>
               </td>
               <td>{record.title}</td>
               <td>{record.artist}</td>
