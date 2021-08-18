@@ -2,15 +2,26 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Song } from '../../entities/Song';
 
-export const Songs = () => {
+const api = 'http://localhost:4000';
+const path = 'songs';
+
+const useFetch = () => {
   const [records, setRecords] = useState<Song[]>([]);
-  const api = 'http://localhost:4000';
-  const path = 'songs';
 
   const fetch = async () => {
     const result = await axios.get<Song[]>(`${api}/${path}`);
     setRecords(result.data);
   };
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
+  return { fetch, records };
+};
+
+export const Songs = () => {
+  const { fetch, records } = useFetch();
 
   const create = async () => {
     await axios.post<Song>(`${api}/${path}`, {
@@ -24,10 +35,6 @@ export const Songs = () => {
     await axios.delete<Song>(`${api}/${path}/${record.id}`);
     fetch();
   };
-
-  useEffect(() => {
-    fetch();
-  }, []);
 
   return (
     <div>
